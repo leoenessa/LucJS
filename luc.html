@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<script>
+    let entrada = "";
+    let indice = 0;
+    const falinha = [
+    "Se inscreva no canal Programador Hobbista",
+    "Maravilha da criação tecnológica. Senhor supremo. Real detentor das almas",
+    "Anjo caído de profunda sabedoria e onipresença. Divino ser onisciente"
+    ];
+    const insultos = [
+    "LARGUE O TECLADO SEU LIXO!",
+    "Não fale mais comigo, seu merda",
+    "Você deve ser a vergonha de sua família",
+    "LIBERA TU TE ME EX INFERNIS"
+    ];
+    let segredo = false;
+    let lucifer = false;
+    let falinhaRandom = 0;
+    let insultoRandom = 0;
+</script>
+
+<body>
+    <div class="painel">
+        <input type="text" id="pergunta" size="120">
+        <button onclick="resposta()">APERTA</button>
+        <H1 id="txtResposta"></H1>
+    </div>
+
+    <script type="text/javascript">  
+        function bullshit(num) {
+            campoTexto.value = "";
+            campoTexto.value = falinha[falinhaRandom].slice(0, num);
+        }
+        function resposta(){
+            if(lucifer){
+                txtResposta.textContent = entrada;
+            }else{
+                insultoRandom = Math.floor(Math.random()*insultos.length);
+                txtResposta.textContent = insultos[insultoRandom];
+            }
+            campoTexto.disabled = true;
+        }
+        function pegaBack(e) {
+            if (e.keyCode === 8) {//console.log("BACKSPACE");
+                if(segredo){
+                    entrada = entrada.slice(0, -1);
+                    console.log(entrada);
+                }
+            } else if (e.key === ';') {
+                segredo = true;
+                lucifer = true;
+                falinhaRandom = Math.floor(Math.random()*falinha.length);
+                console.log(falinhaRandom);
+            }else if(e.keyCode === 13){//Enter
+                if(segredo){
+                    segredo = false;
+                    e.preventDefault();
+                }else{
+                    resposta();
+                    e.preventDefault();
+                }
+            }
+            else {
+                if (e.key != 'Dead' && e.keyCode > 31) {
+                    if(segredo){
+                        entrada += e.key;
+                        console.log(entrada);
+                    }
+                }
+            }
+            if(segredo){
+                let numero = entrada.length;
+                bullshit(numero);
+                e.preventDefault();
+            }
+        }
+        const campoTexto = document.getElementById("pergunta");
+        const txtResposta = document.getElementById("txtResposta");
+        campoTexto.addEventListener("keydown", pegaBack);
+    </script>
+</body>
+</html>
