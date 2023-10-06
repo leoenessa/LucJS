@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Lúcifer by Programador Hobbista</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="luc.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<style>
+body,h1 {font-family: "Raleway", sans-serif}
+body, html {height: 100%}
+.bgimg {
+  background-image: url("1308111005.jpg");
+  min-height: 100%;
+  background-position: center;
+  background-size: cover;
+}
+</style>
+
+<script>
+    let entrada = "";
+    let indice = 0;
+    const falinha = [
+    "U2UgaW5zY3JldmEgbm8gY2FuYWwgUHJvZ3JhbWFkb3IgSG9iYmlzdGE=",
+    "TWFyYXZpbGhhIGRhIGNyaWHn428gdGVjbm9s82dpY2EuIFNlbmhvciBzdXByZW1vLiBSZWFsIGRldGVudG9yIGRhcyBhbG1hcw==",
+    "QW5qbyBjYe1kbyBkZSBwcm9mdW5kYSBzYWJlZG9yaWEgZSBvbmlwcmVzZW7nYS4gRGl2aW5vIHNlciBvbmlzY2llbnRl"
+    ];
+    const insultos = [
+    "TEFSR1VFIE8gVEVDTEFETyBTRVUgTElYTyE=",
+    "TuNvIGZhbGUgbWFpcyBjb21pZ28sIHNldSBtZXJkYQ==",
+    "Vm9j6iBkZXZlIHNlciBhIHZlcmdvbmhhIGRlIHN1YSBmYW3tbGlh",
+    "TElCRVJBIFRVIFRFIE1FIEVYIElORkVSTklT"
+    ];
+    let segredo = false;
+    let lucifer = false;
+    let falinhaRandom = 0;
+    let insultoRandom = 0;
+    let stemp = "";
+</script>
+
+</head>
+<body>
+
+<div class="container-painel centralizar">
+    <div class="painel">
+        <input type="text" id="pergunta" placeholder="Fale comigo">
+        <button onclick="reset()" class="">Perguntar novamente</button>
+        <H1 id="txtResposta"></H1>
+    </div>
+</div>
+<div class="promocional">
+    <h3 class="visitecanal">Visite o canal no YouTube, se inscreva e faça o pacto!</h1>
+    <a href="https://www.youtube.com/@ProgramadorHobbista/videos">https://www.youtube.com/@ProgramadorHobbista/videos</a>
+</div>
+<script type="text/javascript">  
+    function bullshit(num) {
+        campoTexto.value = "";
+        campoTexto.value = stemp.slice(0, num);
+    }
+    
+    function reset(){
+        segredo = false;
+        lucifer = false;
+        falinhaRandom = 0;
+        insultoRandom = 0;
+        entrada = "";
+        indice = 0;
+        stemp = "";
+        txtResposta.textContent = "";
+        campoTexto.value = "";
+        campoTexto.disabled = false;
+    }
+
+    function resposta(){
+        if(lucifer){
+            //txtResposta.textContent = entrada;
+            let offset=0, tam=entrada.length, exibeResposta;
+            exibeResposta = setInterval(function(){
+                offset++;
+                txtResposta.textContent = entrada.slice(0,offset);
+                if(offset>=tam){
+                    clearInterval(exibeResposta);
+                    offset=0;
+                }
+            },70);
+
+        }else{
+            insultoRandom = Math.floor(Math.random()*insultos.length);
+            
+            //txtResposta.textContent = insultos[insultoRandom];
+            let resp = atob(insultos[insultoRandom]), offset=0, tam=resp.length, exibeResposta;
+            exibeResposta = setInterval(function(){
+                offset++;
+                txtResposta.textContent = resp.slice(0,offset);
+                if(offset>=tam){
+                    clearInterval(exibeResposta);
+                    offset=0;
+                }
+            },70);
+
+        }
+        campoTexto.disabled = true;
+    }
+    function pegaBack(e) {
+        if (e.keyCode === 8) {//console.log("BACKSPACE");
+            if(segredo){
+                entrada = entrada.slice(0, -1);
+                console.log(entrada);
+            }
+        } else if (e.key === ';') {
+            segredo = true;
+            lucifer = true;
+            falinhaRandom = Math.floor(Math.random()*falinha.length);
+            stemp = atob(falinha[falinhaRandom]);
+        }else if(e.keyCode === 13){//Enter
+            if(segredo){
+                segredo = false;
+                e.preventDefault();
+            }else{
+                resposta();
+                e.preventDefault();
+            }
+        }
+        else {
+            if (e.key != 'Dead' && e.keyCode > 31) {
+                if(segredo){
+                    entrada += e.key;
+                    console.log(entrada);
+                }
+            }
+        }
+        if(segredo){
+            let numero = entrada.length;
+            bullshit(numero);
+            e.preventDefault();
+        }
+    }
+    const campoTexto = document.getElementById("pergunta");
+    const txtResposta = document.getElementById("txtResposta");
+    campoTexto.addEventListener("keydown", pegaBack);
+</script>
+</body>
+</html>
